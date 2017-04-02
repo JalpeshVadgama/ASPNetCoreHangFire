@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Hangfire;
 
 namespace ASPNetCoreHangFireSample
 {
@@ -29,6 +30,7 @@ namespace ASPNetCoreHangFireSample
         {
             // Add framework services.
             services.AddMvc();
+            services.AddHangfire(config=>config.UseSqlServerStorage(Configuration.GetConnectionString("HangFireConnectionString")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +38,7 @@ namespace ASPNetCoreHangFireSample
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            app.UseHangfireServer();
 
             if (env.IsDevelopment())
             {
