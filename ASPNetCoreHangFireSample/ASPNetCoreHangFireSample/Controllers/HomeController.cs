@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Hangfire;
 
 namespace ASPNetCoreHangFireSample.Controllers
 {
@@ -10,6 +8,8 @@ namespace ASPNetCoreHangFireSample.Controllers
     {
         public IActionResult Index()
         {
+            BackgroundJob.Enqueue(() => Console.Write("BackGroundJob"));
+            RecurringJob.AddOrUpdate(() => Console.Write("RecurringJob"), Cron.Daily);
             return View();
         }
 
