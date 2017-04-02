@@ -8,8 +8,8 @@ namespace ASPNetCoreHangFireSample.Controllers
     {
         public IActionResult Index()
         {
-            BackgroundJob.Enqueue(() => Console.Write("BackGroundJob"));
-            RecurringJob.AddOrUpdate(() => Console.Write("RecurringJob"), Cron.Daily);
+            BackgroundJob.Enqueue(() => Console.WriteLine("BackGroundJob"));
+            RecurringJob.AddOrUpdate(() => Console.WriteLine("RecurringJob"), Cron.Daily);
             return View();
         }
 
